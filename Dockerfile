@@ -1,10 +1,21 @@
 # syntax=docker/dockerfile:1
-#GitHub Webhook test
+# GitHub Webhook test
 
 FROM node:lts-alpine
-RUN apk add --no-cache python3 make g++
+
+# Install necessary build tools and dependencies
+RUN apk add --no-cache python3 make g++ libc6-compat
+
 WORKDIR /app
+
+# Copy project files
 COPY . .
-RUN yarn install --production
-CMD ["node", "src/index.js"]
+
+# Install dependencies, ignoring optional ones to avoid unnecessary failures
+RUN yarn install --production --ignore-optional
+
+# Expose the application port
 EXPOSE 3000
+
+# Run the application
+CMD ["node", "src/index.js"]
