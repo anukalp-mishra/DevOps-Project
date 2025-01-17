@@ -1,2 +1,0 @@
-# Docker-App
-Todo Application
