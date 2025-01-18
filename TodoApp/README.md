@@ -15,7 +15,7 @@ This project is a Todo application that leverages Docker and Jenkins for continu
 ### Getting Started
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/todo-app.git
+    git clone https://github.com/anukalp-mishra/TodoApp.git
     ```
 2. Navigate to the project directory:
     ```sh
