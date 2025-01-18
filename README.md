@@ -1,8 +1,8 @@
-# Docker and Jenkins Todo Application
+# Docker and Jenkins Application
 
 ## Description
 
-This project is a Todo application that leverages Docker and Jenkins for continuous integration and continuous deployment (CI/CD). The application allows users to manage their tasks efficiently and is built with scalability and reliability in mind.
+This repo contains application that leverages Docker and Jenkins for continuous integration and continuous deployment (CI/CD). The application allows users to manage their tasks efficiently and is built with scalability and reliability in mind.
 
 ### Key Features
 - **Docker**: Containerizes the application for consistent environments across development, testing, and production.
@@ -15,7 +15,7 @@ This project is a Todo application that leverages Docker and Jenkins for continu
 ### Getting Started
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/todo-app.git
+    git clone https://github.com/anukalp-mishra/Docker-App/TodoApp.git
     ```
 2. Navigate to the project directory:
     ```sh
