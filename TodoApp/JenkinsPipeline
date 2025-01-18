@@ -1,0 +1,35 @@
+pipeline{
+    agent any
+    
+    stages{
+        stage("Code Checkout"){
+            steps{
+                git branch: 'main', url: 'https://github.com/anukalp-mishra/Docker-App.git'
+            }
+        }
+        
+        stage("image build"){
+            steps{
+                sh 'docker image build -t anukalpmishra/todoapp:v$BUILD_ID .'
+                sh 'docker image tag anukalpmishra/todoapp:v$BUILD_ID anukalpmishra/todoapp:latest'
+            }
+        }
+        
+        stage("image Push"){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                    // some block
+                    sh "docker login -u ${user} -p ${pass}"
+                    sh 'docker image push anukalpmishra/todoapp:v$BUILD_ID'
+                    sh 'docker image push anukalpmishra/todoapp:latest'
+                }
+            }
+        }
+        
+        stage("create container"){
+            steps{
+                sh 'docker run -itd --name todoapp -p 3000:3000 anukalpmishra/todoapp:latest'
+            }
+        }
+    }
+}
