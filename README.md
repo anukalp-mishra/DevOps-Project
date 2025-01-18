@@ -19,7 +19,7 @@ This repo contains application that leverages Docker and Jenkins for continuous 
     ```
 2. Navigate to the project directory:
     ```sh
-    cd todo-app
+    cd <project-name>
     ```
 3. Build and run the Docker containers:
     ```sh
