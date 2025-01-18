@@ -1,4 +1,4 @@
-# Docker and Jenkins Application
+# DevOps Application
 
 ## Description
 
