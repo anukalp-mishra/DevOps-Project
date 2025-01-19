@@ -28,6 +28,7 @@ This repository contains multiple DevOps applications developed using Jenkins, D
 2. Navigate to the project directory:
     ```sh
     cd DevOps-Project
+    cd <Application-Name>
     ```
 
 ## CI/CD Pipeline
