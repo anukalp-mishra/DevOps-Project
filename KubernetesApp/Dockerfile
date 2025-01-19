@@ -12,14 +12,11 @@ RUN cd /etc/yum.repos.d/ && \
 # Install required packages
 RUN yum -y install java httpd zip unzip
 
-# Add a new template (replace with the URL of your choice)
-ADD spering.zip /var/www/html/
+# Copy spering.zip to the image
+COPY spering.zip /spering.zip
 
-# Set the working directory
-WORKDIR /var/www/html/
-
-# Extract the template files
-RUN unzip -q spering.zip && \
+# Unzip spering.zip and copy contents
+RUN unzip -q /spering.zip && \
     cp -rvf spering/* . && \
     rm -rf spering spering.zip
 
