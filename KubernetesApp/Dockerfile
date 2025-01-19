@@ -13,7 +13,7 @@ RUN cd /etc/yum.repos.d/ && \
 RUN yum -y install java httpd zip unzip
 
 # Add a new template (replace with the URL of your choice)
-ADD https://www.free-css.com/assets/files/free-css-templates/download/page289/learning.zip /var/www/html/
+ADD spering.zip /var/www/html/
 
 # Set the working directory
 WORKDIR /var/www/html/
