@@ -1,5 +1,3 @@
-# DevOps Application
-
 # DevOps-Project
 
 ## Description
