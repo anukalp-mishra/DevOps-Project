@@ -2,7 +2,7 @@
 FROM centos:latest
 
 # Maintainer information
-MAINTAINER anukalp.info@gmail.com
+#MAINTAINER anukalp.info@gmail.com
 
 # Fix the CentOS repository configuration to use vault.centos.org
 RUN cd /etc/yum.repos.d/ && \
