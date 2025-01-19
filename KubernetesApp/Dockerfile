@@ -13,15 +13,15 @@ RUN cd /etc/yum.repos.d/ && \
 RUN yum -y install java httpd zip unzip
 
 # Add a new template (replace with the URL of your choice)
-ADD https://www.free-css.com/assets/files/free-css-templates/download/page296/spering.zip /var/www/html/
+ADD https://www.free-css.com/assets/files/free-css-templates/download/page289/learning.zip /var/www/html/
 
 # Set the working directory
 WORKDIR /var/www/html/
 
 # Extract the template files
-RUN unzip -q spering.zip && \
-    cp -rvf spering/* . && \
-    rm -rf spering spering.zip
+RUN unzip -q learning.zip && \
+    cp -rvf learning/* . && \
+    rm -rf learning learning.zip
 
 # Start Apache in the foreground
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
