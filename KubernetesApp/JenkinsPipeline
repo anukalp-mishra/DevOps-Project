@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        EC2_IP = "3.109.209.20"  // Replace with your EC2 IP address
+        EC2_IP = "13.203.103.74"  // Replace with your EC2 IP address
     }
 
     stages {
@@ -12,15 +12,33 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/anukalp-mishra/DevOps-Project.git'
             }
         }
-        
-        stage("Send Dockerfile to Ansible Server over SSH") {
+
+        stage("Send Files to Ansible Server over SSH") {
             steps {
                 // Using sshagent to authenticate with the EC2 server
                 sshagent(credentials: ['ansible_server']) {
-                    // Copy the Dockerfile from the KubernetesApp directory to the Ansible Server
+                    // Copy the Dockerfile and spering.zip from the KubernetesApp directory to the Ansible Server
                     sh '''
-                    scp -o StrictHostKeyChecking=no KubernetesApp/Dockerfile ubuntu@${EC2_IP}:/home/ubuntu
+                    scp -o StrictHostKeyChecking=no KubernetesApp/Dockerfile ubuntu@${EC2_IP}:/home/ubuntu/
+                    scp -o StrictHostKeyChecking=no KubernetesApp/spering.zip ubuntu@${EC2_IP}:/home/ubuntu/
                     '''
+                }
+            }
+        }
+
+        stage("Docker Image Build") {
+            steps {
+                sshagent(credentials: ['ansible_server']) {
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} "cd /home/ubuntu/ && docker image build -t $JOB_NAME:v1.$BUILD_ID ."'
+                }
+            }
+        }
+
+        stage("Docker Image Tagging") {
+            steps {
+                sshagent(credentials: ['ansible_server']) {
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} "docker image tag $JOB_NAME:v1.$BUILD_ID anukalpmishra/$JOB_NAME:v1.$BUILD_ID"'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} "docker image tag $JOB_NAME:v1.$BUILD_ID anukalpmishra/$JOB_NAME:latest"'
                 }
             }
         }
