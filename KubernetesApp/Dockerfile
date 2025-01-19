@@ -19,9 +19,9 @@ ADD spering.zip /var/www/html/
 WORKDIR /var/www/html/
 
 # Extract the template files
-RUN unzip -q learning.zip && \
-    cp -rvf learning/* . && \
-    rm -rf learning learning.zip
+RUN unzip -q spering.zip && \
+    cp -rvf spering/* . && \
+    rm -rf spering spering.zip
 
 # Start Apache in the foreground
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
