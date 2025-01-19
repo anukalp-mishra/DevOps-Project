@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+
+    environment {
+        EC2_IP = "3.109.209.20"  // Replace with your EC2 IP address
+    }
+
+    stages {
+        stage("Git Checkout") {
+            steps {
+                // Cloning the repository from GitHub
+                git branch: 'main', url: 'https://github.com/anukalp-mishra/DevOps-Project.git'
+            }
+        }
+        
+        stage("Send Dockerfile to Ansible Server over SSH") {
+            steps {
+                // Using sshagent to authenticate with the EC2 server
+                sshagent(credentials: ['ansible_server']) {
+                    // Copy the Dockerfile from the KubernetesApp directory to the Ansible Server
+                    sh '''
+                    scp -o StrictHostKeyChecking=no KubernetesApp/Dockerfile ubuntu@${EC2_IP}:/home/ubuntu
+                    '''
+                }
+            }
+        }
+    }
+}
