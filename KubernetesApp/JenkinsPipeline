@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        EC2_IP = "13.203.103.74"  // Replace with your EC2 IP address
+        EC2_IP = "13.233.251.83"  // Replace with your EC2 IP address
     }
 
     stages {
@@ -39,6 +39,18 @@ pipeline {
                 sshagent(credentials: ['ansible_server']) {
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} "docker image tag $JOB_NAME:v1.$BUILD_ID anukalpmishra/$JOB_NAME:v1.$BUILD_ID"'
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} "docker image tag $JOB_NAME:v1.$BUILD_ID anukalpmishra/$JOB_NAME:latest"'
+                }
+            }
+        }
+        stage("Push Docker Image to Docker Hub") {
+            steps {
+                sshagent(credentials: ['ansible_server']) {
+                    withCredentials([usernamePassword(credentialsId: 'DockerHub', passwordVariable: 'DOCKER_HUB_PASSWORD', usernameVariable: 'DOCKER_HUB_USERNAME')])
+                    {
+                        sh 'ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD"'
+                        sh 'ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} "docker push anukalpmishra/$JOB_NAME:v1.$BUILD_ID"'
+                        sh 'ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} "docker push anukalpmishra/$JOB_NAME:latest"'
+                    }
                 }
             }
         }
