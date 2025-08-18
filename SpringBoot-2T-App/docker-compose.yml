@@ -2,6 +2,7 @@ version: "3"
 services:
   application:
     image: spring-boot-mysql-app
+    container_name: springboot-app
     ports:
       - "8080:8080"
     networks:
@@ -9,16 +10,29 @@ services:
     depends_on:
       - mysqldb
     volumes:
-      - /data/springboot-app
-    
+      - springboot-app-data:/data/springboot-app
+    restart: unless-stopped
+    # environment:
+    #   - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/sbms
+    #   - SPRING_DATASOURCE_USERNAME=root
+    #   - SPRING_DATASOURCE_PASSWORD=root
+
   mysqldb:
     image: mysql:5.7
+    container_name: mysql-db
     networks:
       - springboot-db-net
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=sbms
     volumes:
-      - /data/mysql
+      - mysql-data:/var/lib/mysql
+    restart: unless-stopped
+
 networks:
   springboot-db-net:
+    driver: bridge
+
+volumes:
+  springboot-app-data:
+  mysql-data:
