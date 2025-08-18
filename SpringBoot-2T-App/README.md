@@ -214,7 +214,7 @@ https://github.com/anukalp-mishra/DevOps-Project.git
 				+---------+-------------+-----------+------------+
 				| book_id | author_name | book_name | book_price |
 				+---------+-------------+-----------+------------+
-				|       1 | aseem       | aseembook |        200 |
+				|       1 | anukalp     | anubook   |        200 |
 				+---------+-------------+-----------+------------+
 				1 row in set (0.00 sec)
 				
