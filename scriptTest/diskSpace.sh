@@ -10,5 +10,3 @@ else
     echo "Disk space usage is within limits: $usages%"
     exit 0
 fi
-# End of script
-# This script checks the disk space usage and exits with an appropriate status
