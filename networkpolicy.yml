@@ -10,4 +10,4 @@ spec:
   - from:
     - podSelector:
         matchLabels:    
-          access: "true"        
+          access: "true"
