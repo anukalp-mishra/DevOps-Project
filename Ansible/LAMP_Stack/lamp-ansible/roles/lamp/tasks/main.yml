@@ -1,2 +1,34 @@
----
-# tasks file for roles/lamp
+- name: Install Apache, MySQL, PHP
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - apache2
+    - mysql-server
+    - php
+    - libapache2-mod-php
+    - php-mysql
+
+- name: Ensure Apache is started and enabled
+  service:
+    name: apache2
+    state: started
+    enabled: yes
+
+- name: Ensure MySQL is started and enabled
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+
+- name: Create index.php
+  copy:
+    dest: /var/www/html/index.php
+    content: |
+      <?php
+      phpinfo();
+      ?>
+    owner: www-data
+    group: www-data
+    mode: '0644'
