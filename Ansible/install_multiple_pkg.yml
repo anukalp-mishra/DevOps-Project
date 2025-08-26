@@ -1,0 +1,15 @@
+- name: Install common tools
+  hosts: all
+  become: yes
+  vars:
+    packages:
+      - git
+      - curl
+      - vim
+      - htop
+  tasks:
+    - name: Install packages
+      apt:
+        name: "{{ item }}"
+        state: present  
+      loop: "{{ packages }}"

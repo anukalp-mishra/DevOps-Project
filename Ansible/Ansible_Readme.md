@@ -25,6 +25,8 @@ A Simple Ansible Playbook Example
         name: apache2
         state: present
 
+ansible-playbook -i inventory.ini apache_setup.yml
+
 
 Explanation of the used terminology in the playbook - 
 
