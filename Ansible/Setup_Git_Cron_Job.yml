@@ -1,0 +1,15 @@
+- name: Setup Git and Cron job
+  hosts: mywebserver
+  become: yes
+
+  tasks:
+    - name: Install Git
+      apt:
+        name: git
+        state: present
+
+    - name: Setup Cron Job
+      service:
+        name: cron
+        state: started
+        enabled: yes
