@@ -1,0 +1,9 @@
+- name: Setup MOTD banner
+  hosts: mywebserver
+  become: yes
+
+  tasks:
+    - name: Deploy MOTD
+      template:
+        src: motd.j2
+        dest: /etc/motd

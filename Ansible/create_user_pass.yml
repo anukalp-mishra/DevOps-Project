@@ -1,0 +1,10 @@
+- name: Create a deployment user
+  hosts: mywebserver
+  become: yes
+
+  tasks:
+    - name: Create user 'deployer'
+      user:
+        name: deployer
+        password: "{{ 'MySecret123' | password_hash('sha512') }}"
+        shell: /bin/bash
