@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    parameters {
+        choice(name: 'ENV', choices: ['dev', 'test', 'prod'], description: 'Choose environment')
+    }
+    stages {
+        stage('Deploy') {
+            steps {
+                script {
+                    if (params.ENV == 'dev') {
+                        sh './deploy-dev.sh'
+                    } else if (params.ENV == 'test') {
+                        sh './deploy-test.sh'
+                    } else if (params.ENV == 'prod') {
+                        sh './deploy-prod.sh'
+                    } else {
+                        error("Unknown environment: ${params.ENV}")
+                    }
+                }
+            }
+        }
+    }
+}
