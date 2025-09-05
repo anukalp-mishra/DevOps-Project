@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            parallel {
+                stage('Node 1') {
+                    agent { label 'node1' }
+                    steps {
+                        sh 'echo "Building on Node 1..."'
+                        sh 'touch node1-artifact.txt'
+                    }
+                }
+                stage('Node 2') {
+                    agent { label 'node2' }
+                    steps {
+                        sh 'echo "Building on Node 2..."'
+                        sh 'touch node2-artifact.txt'
+                    }
+                }
+                stage('Node 3') {
+                    agent { label 'node3' }
+                    steps {
+                        sh 'echo "Building on Node 3..."'
+                        sh 'touch node3-artifact.txt'
+                    }
+                }
+            }
+        }
+        stage('Deploy') {
+            agent any
+            steps {
+                sh 'echo "Deploying artifacts from all nodes..."'
+                // Example: Copy artifacts or run deployment scripts
+            }
+        }
+    }
+}
