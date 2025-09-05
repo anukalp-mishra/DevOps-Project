@@ -1,4 +1,4 @@
-pipeline {
+ipeline {
     agent any
     parameters {
         choice(name: 'ENV', choices: ['dev', 'test', 'prod'], description: 'Choose environment')
@@ -12,6 +12,7 @@ pipeline {
                     } else if (params.ENV == 'test') {
                         sh './deploy-test.sh'
                     } else if (params.ENV == 'prod') {
+                        input message: 'Approve deployment to PROD?', ok: 'Deploy'
                         sh './deploy-prod.sh'
                     } else {
                         error("Unknown environment: ${params.ENV}")
