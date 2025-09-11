@@ -9,6 +9,7 @@ pipeline {
         }
         stage('Test') {
             steps {
+                echo 'Here the job will fail!'
                 sh './script.sh'
             }
         }
