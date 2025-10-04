@@ -10,15 +10,6 @@ resource "aws_instance" "new_instance" {
     }
 }
 
-resource "aws_s3_bucket" "my_bucket" {
-    bucket = "my-s3-bucket-terraform-21"
-}
-
-resource "aws_iam_user" "new_user" {
-    count = length(var.user_names)
-    name = var.user_names[count.index]
-}
-
 output "my_output" {
     value = aws_instance.new_instance.public_ip
 }
