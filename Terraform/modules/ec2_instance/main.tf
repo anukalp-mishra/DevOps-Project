@@ -20,6 +20,10 @@ resource "aws_instance" "new_instance" {
     destination = "/home/ubuntu/Test.yml"
   }
 
+  provisioner "local-exec" {
+    command = "touch hello_terra.tf"
+  }
+
     tags = {
         Name = "Terraform EC2"
     }
